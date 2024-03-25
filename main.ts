@@ -210,7 +210,7 @@ console.log("Pacientes pediatría", "\n", pediatria_listado);
 console.log("Pacientes pediatría menores de 10 años", "\n", pediatria_menores_10_listado);
 console.log("Activar protocolo de urgencia", activarProtocoloUrgencia(pacientes));
 console.log("Pacientes reasignados a médico de familia", "\n", pacientes_pediatria_a_medico_de_familia);
-console.log("El pediatra NO se pira a casa: ", HayPacientesDePediatria(pediatria_listado));
+console.log("El pediatra ha terminado: ", HayPacientesDePediatria(pediatria_listado));
 
 // Contador de pacientes
 console.log("Total pacientes médico de familia: " + cuentaPacientesPorEspecialidad(pacientes).medicoDeFamilia);
