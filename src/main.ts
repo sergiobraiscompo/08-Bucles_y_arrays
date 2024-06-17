@@ -85,49 +85,66 @@ const pacientes: Pacientes[] = [
 // Devuelve pacientes pediatría
 const obtenPacientesAsignadosAPediatria = (pacientes: Pacientes[]): Pacientes[] => {
   let pacientesPediatria: Pacientes[] = [];
-  pacientes.map((paciente) => {
-    if (paciente.especialidad === "Pediatra") {
-        pacientesPediatria.push(paciente);
-    }
-  })
+    for (let i = 0; i++, i < pacientes.length;) {
+        const paciente: Pacientes = pacientes[i];
+
+        if (paciente.especialidad === "Pediatra") {
+          pacientesPediatria.push(pacientes[i]);
+        }
+      }
+
+    return pacientesPediatria;
+  };
   
-  return pacientesPediatria;
-};
+  
 
-
-
-//Devuelve pacientes pediatría menores de 10 años
-const obtenPacientesAsignadosAPediatriaYMenorDeDiezAnios = (pacientes: Pacientes[]): Pacientes[] => {
+  //Devuelve pacientes pediatría menores de 10 años
+  const obtenPacientesAsignadosAPediatriaYMenorDeDiezAnios = (pacientes: Pacientes[]): Pacientes[] => {
   let pacientesPediatriaMenores10: Pacientes[] = [];
-  
-  pacientes.map((paciente) => {
+
+  for (let i = 0; i++, i < (pacientes.length);) {
+    const paciente: Pacientes = pacientes[i];
+
     if (paciente.edad < 10) {
       pacientesPediatriaMenores10.push(paciente);
     }
-  })
+  }
 
   return pacientesPediatriaMenores10;
 };
 
 
+
 // Activa el protocolo de urgencia
 const activarProtocoloUrgencia = (pacientes: Pacientes[]): boolean => {
-  let activarProtocolo = false;
+  let activarProctolo = false;
+  let i = 0;
 
-  pacientes.map((paciente) => {
-    activarProtocolo = paciente.temperatura > 39 && paciente.frecuenciaCardiaca > 100;
-  });
+  while (!activarProctolo && i < pacientes.length) {
+    let paciente = pacientes[i];
+    
+    if(paciente.temperatura > 39 && paciente.frecuenciaCardiaca > 100) {
+      activarProctolo = true;
+      break;
+    }
 
-  return activarProtocolo;
+    i++;
+  }
+
+  return activarProctolo;
 };
+
+
 
 // Reasigna los pacientes de pediatría a médico de familia
 const reasignaPacientesAMedicoFamilia = (pacientes: Pacientes[]): Pacientes[] => {
   let pacientesReasignadosPedietriaAMedicoDeFamilia: Pacientes[] = [];
+  let i = 0;
 
-  pacientes.map((paciente) => {
-    pacientesReasignadosPedietriaAMedicoDeFamilia.push(paciente);
-  })
+  while (i < pacientes.length) {
+    pacientesReasignadosPedietriaAMedicoDeFamilia.push(pacientes[i]);
+    i++;
+  }
 
   return pacientesReasignadosPedietriaAMedicoDeFamilia;
 };
@@ -135,16 +152,22 @@ const reasignaPacientesAMedicoFamilia = (pacientes: Pacientes[]): Pacientes[] =>
 
 
 // Comprueba si el pediatra ya no tiene pacientes
-const hayPacientesDePediatria = (pacientes: Pacientes[]): boolean => {
-  let quedan_Pacientes: boolean = true;
+const HayPacientesDePediatria = (pacientes: Pacientes[]): boolean => {
+  let quedan_Pacientes: boolean = false;
+  let i = 0;
   
-  pacientes.every((paciente) => {
-    if (paciente.especialidad === "Pediatra") {
+  while (!quedan_Pacientes && i < pacientes.length) {
+    if (pacientes[i].especialidad === "Pediatra") {
+      quedan_Pacientes = true;
+      break;
+    } else {
       quedan_Pacientes = false;
     }
-  })
+
+    i++;
+  }
   
-  return quedan_Pacientes;
+  return !quedan_Pacientes;
 };
 
 
@@ -154,16 +177,20 @@ const cuentaPacientesPorEspecialidad = (pacientes: Pacientes[]): NumeroPacientes
   let contadorPediatria = 0;
   let contadorMedicoDeFamilia = 0;
   let contadorCardiologia = 0;
-  
-  pacientes.map((paciente) => {
+  let i = 0;
+
+  while (i < pacientes.length) {
+    const paciente = pacientes[i];
+
     if (paciente.especialidad === "Pediatra") {
       contadorPediatria ++;
     } else {
-      paciente.especialidad === "Cardiólogo"
-      ? contadorCardiologia ++
-      : contadorMedicoDeFamilia ++;
+      paciente.especialidad === "Cardiólogo" ?
+      contadorMedicoDeFamilia ++
+      : contadorCardiologia ++;
     }
-  })
+    i++;
+  }
   
   const cantidadPacientes: NumeroPacientesPorEspecialidad = {
     medicoDeFamilia: contadorMedicoDeFamilia,
@@ -172,6 +199,7 @@ const cuentaPacientesPorEspecialidad = (pacientes: Pacientes[]): NumeroPacientes
   }
   
   return cantidadPacientes;
+
 };
 
 // Obtener listados
@@ -184,7 +212,7 @@ console.log("Pacientes pediatría", "\n", pediatria_listado);
 console.log("Pacientes pediatría menores de 10 años", "\n", pediatria_menores_10_listado);
 console.log("Activar protocolo de urgencia", activarProtocoloUrgencia(pacientes));
 console.log("Pacientes reasignados a médico de familia", "\n", pacientes_pediatria_a_medico_de_familia);
-console.log("El pediatra ha terminado: ", hayPacientesDePediatria(pediatria_listado));
+console.log("El pediatra ha terminado: ", HayPacientesDePediatria(pediatria_listado));
 
 // Contador de pacientes
 console.log("Total pacientes médico de familia: " + cuentaPacientesPorEspecialidad(pacientes).medicoDeFamilia);
