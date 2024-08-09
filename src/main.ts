@@ -1,109 +1,25 @@
-type Especialidad = "Medico de familia" | "Pediatra" | "Cardiólogo";
-
-interface Pacientes {
-  id: number;
-  nombre: string;
-  apellidos: string;
-  sexo: string;
-  temperatura: number;
-  frecuenciaCardiaca: number;
-  especialidad: Especialidad;
-  edad: number;
-}
-
-// Interfaz cantidad pacientes
-interface NumeroPacientesPorEspecialidad {
-  medicoDeFamilia: number;
-  pediatria: number;
-  cardiologia: number;
-}
-
-const pacientes: Pacientes[] = [
-  {
-    id: 1,
-    nombre: "John",
-    apellidos: "Doe",
-    sexo: "Male",
-    temperatura: 36.8,
-    frecuenciaCardiaca: 80,
-    especialidad: "Medico de familia",
-    edad: 44,
-  },
-  {
-    id: 2,
-    nombre: "Jane",
-    apellidos: "Doe",
-    sexo: "Female",
-    temperatura: 36.8,
-    frecuenciaCardiaca: 70,
-    especialidad: "Medico de familia",
-    edad: 43,
-  },
-  {
-    id: 3,
-    nombre: "Junior",
-    apellidos: "Doe",
-    sexo: "Male",
-    temperatura: 36.8,
-    frecuenciaCardiaca: 90,
-    especialidad: "Pediatra",
-    edad: 8,
-  },
-  {
-    id: 4,
-    nombre: "Mary",
-    apellidos: "Wien",
-    sexo: "Female",
-    temperatura: 36.8,
-    frecuenciaCardiaca: 120,
-    especialidad: "Medico de familia",
-    edad: 20,
-  },
-  {
-    id: 5,
-    nombre: "Scarlett",
-    apellidos: "Somez",
-    sexo: "Female",
-    temperatura: 36.8,
-    frecuenciaCardiaca: 110,
-    especialidad: "Cardiólogo",
-    edad: 30,
-  },
-  {
-    id: 6,
-    nombre: "Brian",
-    apellidos: "Kid",
-    sexo: "Male",
-    temperatura: 39.8,
-    frecuenciaCardiaca: 80,
-    especialidad: "Pediatra",
-    edad: 11,
-  },
-];
-
+import * as constantes from "./constantes";
 
 // Devuelve pacientes pediatría
-const obtenPacientesAsignadosAPediatria = (pacientes: Pacientes[]): Pacientes[] => {
-  let pacientesPediatria: Pacientes[] = [];
+const obtenPacientesAsignadosAPediatria = (pacientes: constantes.Pacientes[]): constantes.Pacientes[] => {
+  let pacientesPediatria: constantes.Pacientes[] = [];
     for (let i = 0; i++, i < pacientes.length;) {
-        const paciente: Pacientes = pacientes[i];
+        const paciente: constantes.Pacientes = pacientes[i];
 
         if (paciente.especialidad === "Pediatra") {
           pacientesPediatria.push(pacientes[i]);
         }
       }
 
-    return pacientesPediatria;
-  };
-  
-  
+  return pacientesPediatria;
+};
 
-  //Devuelve pacientes pediatría menores de 10 años
-  const obtenPacientesAsignadosAPediatriaYMenorDeDiezAnios = (pacientes: Pacientes[]): Pacientes[] => {
-  let pacientesPediatriaMenores10: Pacientes[] = [];
+//Devuelve pacientes pediatría menores de 10 años
+const obtenPacientesAsignadosAPediatriaYMenorDeDiezAnios = (pacientes: constantes.Pacientes[]): constantes.Pacientes[] => {
+  let pacientesPediatriaMenores10: constantes.Pacientes[] = [];
 
   for (let i = 0; i++, i < (pacientes.length);) {
-    const paciente: Pacientes = pacientes[i];
+    const paciente: constantes.Pacientes = pacientes[i];
 
     if (paciente.edad < 10) {
       pacientesPediatriaMenores10.push(paciente);
@@ -113,10 +29,8 @@ const obtenPacientesAsignadosAPediatria = (pacientes: Pacientes[]): Pacientes[] 
   return pacientesPediatriaMenores10;
 };
 
-
-
 // Activa el protocolo de urgencia
-const activarProtocoloUrgencia = (pacientes: Pacientes[]): boolean => {
+const activarProtocoloUrgencia = (pacientes: constantes.Pacientes[]): boolean => {
   let activarProctolo = false;
   let i = 0;
 
@@ -134,25 +48,22 @@ const activarProtocoloUrgencia = (pacientes: Pacientes[]): boolean => {
   return activarProctolo;
 };
 
-
-
 // Reasigna los pacientes de pediatría a médico de familia
-const reasignaPacientesAMedicoFamilia = (pacientes: Pacientes[]): Pacientes[] => {
-  let pacientesReasignadosPedietriaAMedicoDeFamilia: Pacientes[] = [];
+const reasignaPacientesAMedicoFamilia = (pacientes: constantes.Pacientes[]): constantes.Pacientes[] => {
   let i = 0;
+  const pacientesAreasignar = obtenPacientesAsignadosAPediatria(pacientes);
 
-  while (i < pacientes.length) {
-    pacientesReasignadosPedietriaAMedicoDeFamilia.push(pacientes[i]);
+  while (i < pacientesAreasignar.length) {
+    pacientesAreasignar[i].especialidad = "Medico de familia";
     i++;
   }
 
-  return pacientesReasignadosPedietriaAMedicoDeFamilia;
+  const pacientesMedicofamilia = pacientes.filter((paciente) => paciente.especialidad === "Medico de familia");
+  return pacientesMedicofamilia;
 };
 
-
-
 // Comprueba si el pediatra ya no tiene pacientes
-const HayPacientesDePediatria = (pacientes: Pacientes[]): boolean => {
+const hayPacientesDePediatria = (pacientes: constantes.Pacientes[]): boolean => {
   let quedan_Pacientes: boolean = false;
   let i = 0;
   
@@ -170,10 +81,8 @@ const HayPacientesDePediatria = (pacientes: Pacientes[]): boolean => {
   return !quedan_Pacientes;
 };
 
-
-
 // Contador de pacientes por especialidad
-const cuentaPacientesPorEspecialidad = (pacientes: Pacientes[]): NumeroPacientesPorEspecialidad => {
+const cuentaPacientesPorEspecialidad = (pacientes: constantes.Pacientes[]): constantes.NumeroPacientesPorEspecialidad => {
   let contadorPediatria = 0;
   let contadorMedicoDeFamilia = 0;
   let contadorCardiologia = 0;
@@ -192,7 +101,7 @@ const cuentaPacientesPorEspecialidad = (pacientes: Pacientes[]): NumeroPacientes
     i++;
   }
   
-  const cantidadPacientes: NumeroPacientesPorEspecialidad = {
+  const cantidadPacientes: constantes.NumeroPacientesPorEspecialidad = {
     medicoDeFamilia: contadorMedicoDeFamilia,
     pediatria: contadorPediatria,
     cardiologia:contadorCardiologia
@@ -202,19 +111,21 @@ const cuentaPacientesPorEspecialidad = (pacientes: Pacientes[]): NumeroPacientes
 
 };
 
+
+
 // Obtener listados
-const pediatria_listado: Pacientes[] = obtenPacientesAsignadosAPediatria(pacientes);
-const pediatria_menores_10_listado: Pacientes[] = obtenPacientesAsignadosAPediatriaYMenorDeDiezAnios(pacientes); // Por alguna razón no me permite hacerlo desde el listado de pediatría
-const pacientes_pediatria_a_medico_de_familia: Pacientes[] = reasignaPacientesAMedicoFamilia(pediatria_listado);
+const pediatria_listado: constantes.Pacientes[] = obtenPacientesAsignadosAPediatria(constantes.pacientes);
+const pediatria_menores_10_listado: constantes.Pacientes[] = obtenPacientesAsignadosAPediatriaYMenorDeDiezAnios(constantes.pacientes); // Por alguna razón no me permite hacerlo desde el listado de pediatría
+const pacientes_pediatria_a_medico_de_familia: constantes.Pacientes[] = reasignaPacientesAMedicoFamilia(constantes.pacientes);
 
 // Mostrar listados
 console.log("Pacientes pediatría", "\n", pediatria_listado);
 console.log("Pacientes pediatría menores de 10 años", "\n", pediatria_menores_10_listado);
-console.log("Activar protocolo de urgencia", activarProtocoloUrgencia(pacientes));
-console.log("Pacientes reasignados a médico de familia", "\n", pacientes_pediatria_a_medico_de_familia);
-console.log("El pediatra ha terminado: ", HayPacientesDePediatria(pediatria_listado));
+console.log("Activar protocolo de urgencia", activarProtocoloUrgencia(constantes.pacientes));
+console.log("Pacientes asignados a médico de familia", "\n", pacientes_pediatria_a_medico_de_familia);
+console.log("El pediatra ha terminado: ", hayPacientesDePediatria(pediatria_listado));
 
 // Contador de pacientes
-console.log("Total pacientes médico de familia: " + cuentaPacientesPorEspecialidad(pacientes).medicoDeFamilia);
-console.log("Total pacientes cardiología: " + cuentaPacientesPorEspecialidad(pacientes).cardiologia);
-console.log("Total pacientes pediatría: " + cuentaPacientesPorEspecialidad(pacientes).pediatria);
+console.log("Total pacientes médico de familia: " + cuentaPacientesPorEspecialidad(constantes.pacientes).medicoDeFamilia);
+console.log("Total pacientes cardiología: " + cuentaPacientesPorEspecialidad(constantes.pacientes).cardiologia);
+console.log("Total pacientes pediatría: " + cuentaPacientesPorEspecialidad(constantes.pacientes).pediatria);
