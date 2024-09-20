@@ -64,21 +64,21 @@ const reasignaPacientesAMedicoFamilia = (pacientes: constantes.Pacientes[]): con
 
 // Comprueba si el pediatra ya no tiene pacientes
 const hayPacientesDePediatria = (pacientes: constantes.Pacientes[]): boolean => {
-  let quedan_Pacientes: boolean = false;
+  let quedanPacientes: boolean = false;
   let i = 0;
   
-  while (!quedan_Pacientes && i < pacientes.length) {
+  while (!quedanPacientes && i < pacientes.length) {
     if (pacientes[i].especialidad === "Pediatra") {
-      quedan_Pacientes = true;
+      quedanPacientes = true;
       break;
     } else {
-      quedan_Pacientes = false;
+      quedanPacientes = false;
     }
 
     i++;
   }
   
-  return !quedan_Pacientes;
+  return !quedanPacientes;
 };
 
 // Contador de pacientes por especialidad
@@ -112,18 +112,17 @@ const cuentaPacientesPorEspecialidad = (pacientes: constantes.Pacientes[]): cons
 };
 
 
-
 // Obtener listados
-const pediatria_listado: constantes.Pacientes[] = obtenPacientesAsignadosAPediatria(constantes.pacientes);
-const pediatria_menores_10_listado: constantes.Pacientes[] = obtenPacientesAsignadosAPediatriaYMenorDeDiezAnios(constantes.pacientes); // Por alguna razón no me permite hacerlo desde el listado de pediatría
-const pacientes_pediatria_a_medico_de_familia: constantes.Pacientes[] = reasignaPacientesAMedicoFamilia(constantes.pacientes);
+const pediatriaListado: constantes.Pacientes[] = obtenPacientesAsignadosAPediatria(constantes.pacientes);
+const pediatriaMenores10Listado: constantes.Pacientes[] = obtenPacientesAsignadosAPediatriaYMenorDeDiezAnios(constantes.pacientes); // Por alguna razón no me permite hacerlo desde el listado de pediatría
+const pacientesPediatraAMedicoDeFamilia: constantes.Pacientes[] = reasignaPacientesAMedicoFamilia(constantes.pacientes);
 
 // Mostrar listados
-console.log("Pacientes pediatría", "\n", pediatria_listado);
-console.log("Pacientes pediatría menores de 10 años", "\n", pediatria_menores_10_listado);
+console.log("Pacientes pediatría", "\n", pediatriaListado);
+console.log("Pacientes pediatría menores de 10 años", "\n", pediatriaMenores10Listado);
 console.log("Activar protocolo de urgencia", activarProtocoloUrgencia(constantes.pacientes));
-console.log("Pacientes asignados a médico de familia", "\n", pacientes_pediatria_a_medico_de_familia);
-console.log("El pediatra ha terminado: ", hayPacientesDePediatria(pediatria_listado));
+console.log("Pacientes asignados a médico de familia", "\n", pacientesPediatraAMedicoDeFamilia);
+console.log("El pediatra ha terminado: ", hayPacientesDePediatria(pediatriaListado));
 
 // Contador de pacientes
 console.log("Total pacientes médico de familia: " + cuentaPacientesPorEspecialidad(constantes.pacientes).medicoDeFamilia);
